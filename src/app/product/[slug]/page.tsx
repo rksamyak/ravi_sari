@@ -6,6 +6,7 @@ import { useWishlist } from '@/context/WishlistContext';
 import PlaceholderImage from '@/components/PlaceholderImage';
 import Breadcrumbs from '@/components/Breadcrumbs';
 import ProductCard from '@/components/ProductCard';
+import Link from 'next/link';
 import { useState, Suspense } from 'react';
 
 function ProductContent() {
@@ -19,7 +20,7 @@ function ProductContent() {
     return (
       <div className="max-w-7xl mx-auto px-4 py-20 text-center">
         <h1 className="text-2xl font-serif font-bold text-gray-800">Product not found</h1>
-        <a href="/" className="mt-4 inline-block text-[#8B1A2B] hover:underline">← Back to Home</a>
+        <Link href="/" className="mt-4 inline-block text-[#8B1A2B] hover:underline">← Back to Home</Link>
       </div>
     );
   }

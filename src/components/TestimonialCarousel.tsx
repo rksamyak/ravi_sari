@@ -1,9 +1,7 @@
 'use client';
-import { useState } from 'react';
 import { testimonials } from '@/data/products';
 
 export default function TestimonialCarousel() {
-  const [current, setCurrent] = useState(0);
   return (
     <section className="py-12 md:py-16 bg-[#FFF8F0]">
       <div className="max-w-7xl mx-auto px-4">

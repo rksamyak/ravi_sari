@@ -11,19 +11,20 @@ interface WishlistContextType {
 
 const WishlistContext = createContext<WishlistContextType | undefined>(undefined);
 
-export function WishlistProvider({ children }: { children: React.ReactNode }) {
-  const [items, setItems] = useState<Product[]>([]);
-  const [mounted, setMounted] = useState(false);
-
-  useEffect(() => {
+function loadWishlist(): Product[] {
+  if (typeof window === 'undefined') return [];
+  try {
     const saved = localStorage.getItem('ravi-wishlist');
-    if (saved) { try { setItems(JSON.parse(saved)); } catch {} }
-    setMounted(true);
-  }, []);
+    return saved ? JSON.parse(saved) : [];
+  } catch { return []; }
+}
+
+export function WishlistProvider({ children }: { children: React.ReactNode }) {
+  const [items, setItems] = useState<Product[]>(loadWishlist);
 
   useEffect(() => {
-    if (mounted) localStorage.setItem('ravi-wishlist', JSON.stringify(items));
-  }, [items, mounted]);
+    localStorage.setItem('ravi-wishlist', JSON.stringify(items));
+  }, [items]);
 
   const toggleWishlist = useCallback((product: Product) => {
     setItems(prev => prev.find(i => i.id === product.id) ? prev.filter(i => i.id !== product.id) : [...prev, product]);

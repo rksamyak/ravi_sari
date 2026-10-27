@@ -1,7 +1,6 @@
 'use client';
 import Link from 'next/link';
-import { getProductsByPriceRange, formatPrice } from '@/data/products';
-import PlaceholderImage from './PlaceholderImage';
+import { getProductsByPriceRange } from '@/data/products';
 
 const ranges = [
   { label: 'Under ₹999', min: 0, max: 999, gradient: 'from-emerald-700 to-teal-500' },

@@ -18,20 +18,21 @@ interface CartContextType {
 
 const CartContext = createContext<CartContextType | undefined>(undefined);
 
-export function CartProvider({ children }: { children: React.ReactNode }) {
-  const [items, setItems] = useState<CartItem[]>([]);
-  const [isCartOpen, setIsCartOpen] = useState(false);
-  const [mounted, setMounted] = useState(false);
-
-  useEffect(() => {
+function loadCart(): CartItem[] {
+  if (typeof window === 'undefined') return [];
+  try {
     const saved = localStorage.getItem('ravi-cart');
-    if (saved) { try { setItems(JSON.parse(saved)); } catch {} }
-    setMounted(true);
-  }, []);
+    return saved ? JSON.parse(saved) : [];
+  } catch { return []; }
+}
+
+export function CartProvider({ children }: { children: React.ReactNode }) {
+  const [items, setItems] = useState<CartItem[]>(loadCart);
+  const [isCartOpen, setIsCartOpen] = useState(false);
 
   useEffect(() => {
-    if (mounted) localStorage.setItem('ravi-cart', JSON.stringify(items));
-  }, [items, mounted]);
+    localStorage.setItem('ravi-cart', JSON.stringify(items));
+  }, [items]);
 
   const addToCart = useCallback((product: Product) => {
     setItems(prev => {

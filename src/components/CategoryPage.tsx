@@ -1,6 +1,6 @@
 'use client';
 import { useState, useMemo } from 'react';
-import { Product, formatPrice } from '@/data/products';
+import { Product } from '@/data/products';
 import ProductCard from './ProductCard';
 import FilterSidebar from './FilterSidebar';
 import Breadcrumbs from './Breadcrumbs';
